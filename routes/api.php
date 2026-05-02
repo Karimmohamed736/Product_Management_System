@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Favorites\FavoriteController;
 use App\Http\Controllers\Products\ProductController;
 use App\Http\Controllers\Products\ProductsAttributesController;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,7 @@ Route::controller(CategoryController::class)->group(function () {
     Route::get('show/category/{category}', 'show');
     Route::get('/categories', 'getAllCategories');
 });
-Route::middleware('auth:api')->controller(CategoryController::class)->group(function () {
+Route::middleware(['auth:api', 'admin'])->controller(CategoryController::class)->group(function () {
     Route::post('create/category', 'createCategory');
     Route::put('update/category/{category}', 'update');
     Route::delete('delete/category/{category}', 'destroy');
@@ -35,7 +36,7 @@ Route::middleware('auth:api')->controller(CategoryController::class)->group(func
 
 
 // Product routes
-Route::middleware('auth:api')->controller(ProductController::class)->group(function () {
+Route::middleware(['auth:api', 'admin'])->controller(ProductController::class)->group(function () {
     Route::post('/create/product', 'createProduct');
     Route::put('/update/product/{product}', 'update');
     Route::delete('/delete/product/{product}', 'destroy');
@@ -54,3 +55,12 @@ Route::controller(ProductsAttributesController::class)->group(function () {
     Route::post('/create/attribute', 'createAttribute')->middleware('auth:api');
 });
 //------------------   End Product Attributes routes ---------------------------------
+
+// Favorites routes
+Route::middleware(['auth:api', 'admin'])->controller(FavoriteController::class)->group(function(){
+    Route::get('/favorites','allFavorites');
+    Route::post('addto/favorites/{product}','addToFavorites');
+    Route::delete('delete/favorite/{product}','removeFromFavorites');
+
+});
+//------------------   End Favorites routes ---------------------------------

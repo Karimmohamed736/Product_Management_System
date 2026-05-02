@@ -21,7 +21,9 @@ class ProductController extends Controller
     {
         return response()->json([
             'message' => 'Products retrieved successfully',
-            'products' => ProductResource::collection($this-> ProductsService->getAllProducts($request->all()))
+            'products' => ProductResource::collection($this-> ProductsService->getAllProducts($request->only(
+                'search', 'category_id', 'brand', 'min_price', 'max_price'
+            )))
         ]);
     }
 
