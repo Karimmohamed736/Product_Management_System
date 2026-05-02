@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Translatable\HasTranslations;
 
-class Category extends Model
+class Category extends Model implements HasMedia
 {
-    use HasTranslations, SoftDeletes, HasMedia, InteractsWithMedia;
+    use HasTranslations, SoftDeletes, InteractsWithMedia, HasFactory;
     protected $fillable = ['name', 'status', 'parent_id'];
     public $translatable = ['name'];
 

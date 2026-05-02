@@ -4,9 +4,9 @@ namespace App\Services;
 
 class MediaService{
     //create media for a model
-    public function createMedia($file, $model, $collection='images'){
+    public function createMedia($file, $model, string $collection){
 
-        $model->addMedia($file)->toMediaCollection($collection);
+       return $model->addMedia($file)->toMediaCollection($collection);
     }
 
     //update media by deleting old one and adding new one
