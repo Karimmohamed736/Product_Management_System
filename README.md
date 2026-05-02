@@ -2,21 +2,6 @@
 
 A full-featured **Product Management System** built with Laravel 13, featuring a RESTful API with JWT Authentication, Admin Dashboard, multi-language support (Arabic/English), and media management.
 
----
-
-## 📋 Table of Contents
-
-- [Features](#features)
-- [Requirements](#requirements)
-- [Packages Used](#packages-used)
-- [Installation](#installation)
-- [Environment Setup](#environment-setup)
-- [Database](#database)
-- [Running the Project](#running-the-project)
-- [API Documentation](#api-documentation)
-- [Admin Dashboard](#admin-dashboard)
-- [Localization](#localization)
-- [Project Structure](#project-structure)
 
 ---
 
@@ -393,21 +378,6 @@ app/
 | `product_attributes` | Unlimited key/value attributes |
 | `favorites` | User favorite products |
 | `media` | All images & files (Spatie) |
-
----
-
-## 📊 Evaluation Criteria
-
-| Criteria | Points |
-|---|---|
-| Database Design | 20 |
-| Relationships | 20 |
-| Dashboard | 15 |
-| API | 20 |
-| JWT Auth | 10 |
-| Clean Code | 10 |
-| Bonus | 5 |
-| **Total** | **100** |
 
 ---
 
