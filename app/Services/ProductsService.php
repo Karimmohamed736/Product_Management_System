@@ -16,9 +16,7 @@ class ProductsService
 
     public function getAllProducts($filters = [])
     {
-        //add caching for 1 hour with key based on filters
-        $cacheKey = 'products_' . md5(json_encode($filters));
-        return Cache::remember($cacheKey, now()->addMinutes(60), function () use ($filters) {
+
         $query = Product::with(['category', 'media', 'attributes']);
 
         // search by title en or ar
@@ -49,12 +47,15 @@ class ProductsService
         }
 
         return $query->latest()->paginate(10);
-        });
+
     }
 
     public function getProductById($id)
     {
+        // Caching product details for 60 minutes
+        return Cache::remember('product_' . $id, now()->addMinutes(60), function () use ($id) {
         return Product::with(['category', 'media', 'attributes'])->findOrFail($id);
+             });
     }
 
     public function createProduct($data)
