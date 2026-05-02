@@ -16,9 +16,15 @@
     </li>
     <!-- Nav item -->
     <li class="nav-item dropdown">
-      <a class="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <a class="" href="{{ route('admin.categories.index') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
-        <span class="text">Pages</span>
+        <span class="text">Categories</span>
+      </a>
+    </li>
+        <li class="nav-item dropdown">
+      <a class="" href="{{ route('admin.products.index') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+        <span class="text">Products</span>
       </a>
     </li>
   </ul>

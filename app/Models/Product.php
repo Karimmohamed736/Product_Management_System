@@ -18,7 +18,7 @@ class Product extends Model implements HasMedia
         'status' => 'boolean',
         'stock' => 'integer',
     ];
-    
+
     public $translatable = ['title', 'description'];
 
     public function category()
@@ -37,7 +37,7 @@ class Product extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('main_image')->singleFile();
+        $this->addMediaCollection('main-image')->singleFile();
         $this->addMediaCollection('gallery');
         $this->addMediaCollection('files');
     }

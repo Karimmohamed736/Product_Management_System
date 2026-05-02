@@ -1,58 +1,416 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🛒 Product Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A full-featured **Product Management System** built with Laravel 13, featuring a RESTful API with JWT Authentication, Admin Dashboard, multi-language support (Arabic/English), and media management.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Features](#features)
+- [Requirements](#requirements)
+- [Packages Used](#packages-used)
+- [Installation](#installation)
+- [Environment Setup](#environment-setup)
+- [Database](#database)
+- [Running the Project](#running-the-project)
+- [API Documentation](#api-documentation)
+- [Admin Dashboard](#admin-dashboard)
+- [Localization](#localization)
+- [Project Structure](#project-structure)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- ✅ JWT Authentication (Register, Login, Logout, Profile)
+- ✅ Multi-level nested Categories with Tree View
+- ✅ Products with Search, Filters & Pagination
+- ✅ Product Attributes (unlimited key/value pairs)
+- ✅ Multiple Gallery Images & PDF Files via Spatie Media Library
+- ✅ Favorites System
+- ✅ Multi-language Support (Arabic / English)
+- ✅ Admin Dashboard with full CRUD
+- ✅ Product Caching
+- ✅ Soft Deletes
+- ✅ Service Pattern & Clean Architecture
+- ✅ Form Request Validation
+- ✅ API Resources
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 🔧 Requirements
 
-## Agentic Development
+| Requirement | Version |
+|---|---|
+| PHP | ^8.2 |
+| Laravel | ^13.x |
+| MySQL | ^8.0 |
+| Composer | ^2.x |
+| Node.js | ^18.x |
+| NPM | ^9.x |
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
+
+## 📦 Packages Used
+
+| Package | Purpose |
+|---|---|
+| `php-open-source-saver/jwt-auth` | JWT Authentication |
+| `spatie/laravel-translatable` | Multi-language (AR/EN) |
+| `spatie/laravel-medialibrary` | Images & Files Management |
+| `mcamara/laravel-localization` | Localization |
+| `laravel/breeze` | Admin Auth Scaffolding |
+
+---
+
+## 🚀 Installation
+
+### 1. Clone the Repository
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/your-username/product-management.git
+cd product-management
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install PHP Dependencies
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Install Node Dependencies
 
-## Code of Conduct
+```bash
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Copy Environment File
 
-## Security Vulnerabilities
+```bash
+cp .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## ⚙️ Environment Setup
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Open `.env` and configure the following:
+
+```env
+APP_NAME="Product Management"
+APP_URL=http://127.0.0.1:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=product_management
+DB_USERNAME=root
+DB_PASSWORD=
+
+CACHE_STORE=file
+
+JWT_SECRET=  # will be generated in next step
+```
+
+### Enable Sodium Extension (Required for JWT)
+
+Open your `php.ini` file and uncomment:
+
+```ini
+extension=sodium
+```
+
+---
+
+## 🗄️ Database
+
+### 1. Create Database
+
+```sql
+CREATE DATABASE product_management;
+```
+
+### 2. Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### 3. Generate JWT Secret
+
+```bash
+php artisan jwt:secret
+```
+
+### 4. Run Migrations
+
+```bash
+php artisan migrate
+```
+
+### 5. Run Seeders
+
+```bash
+php artisan db:seed
+```
+
+Or fresh migration with seeders:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+### 6. Create Storage Link
+
+```bash
+php artisan storage:link
+```
+
+---
+
+## ▶️ Running the Project
+
+### Start the Backend Server
+
+```bash
+php artisan serve
+```
+
+### Start the Frontend (Vite)
+
+```bash
+npm run dev
+```
+
+The application will be available at: `http://127.0.0.1:8000`
+
+---
+
+## 📡 API Documentation
+
+### Base URL
+```
+http://127.0.0.1:8000/api
+```
+
+### Authentication Header
+```
+Authorization: Bearer {token}
+```
+
+### Language Header
+```
+Accept-Language: ar   (Arabic)
+Accept-Language: en   (English)
+```
+
+---
+
+### 🔐 Auth Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| POST | `/api/register` | Register new user | ❌ |
+| POST | `/api/login` | Login | ❌ |
+| POST | `/api/logout` | Logout | ✅ |
+| GET | `/api/profile` | Get user profile | ✅ |
+
+#### Register
+```json
+POST /api/register
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "12345678",
+    "password_confirmation": "12345678"
+}
+```
+
+#### Login
+```json
+POST /api/login
+{
+    "email": "john@example.com",
+    "password": "12345678"
+}
+```
+
+---
+
+### 📂 Categories Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| GET | `/api/categories` | Get all categories | ❌ |
+| GET | `/api/categories/tree` | Get categories tree | ❌ |
+| GET | `/api/show/category/{id}` | Get single category | ❌ |
+| POST | `/api/create/category` | Create category | ✅ |
+| PUT | `/api/update/category/{id}` | Update category | ✅ |
+| DELETE | `/api/delete/category/{id}` | Delete category | ✅ |
+
+#### Create Category (form-data)
+```
+name[en]   = Electronics
+name[ar]   = إلكترونيات
+status     = 1
+parent_id  = (optional)
+image      = (file, optional)
+```
+
+---
+
+### 🛍️ Products Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| GET | `/api/products` | Get all products | ❌ |
+| GET | `/api/show/product/{id}` | Get single product | ❌ |
+| POST | `/api/create/product` | Create product | ✅ |
+| PUT | `/api/update/product/{id}` | Update product | ✅ |
+| DELETE | `/api/delete/product/{id}` | Delete product | ✅ |
+
+#### Query Parameters for Products
+```
+GET /api/products?search=iphone
+GET /api/products?category_id=1
+GET /api/products?min_price=100&max_price=500
+GET /api/products?brand=Apple
+```
+
+#### Create Product (form-data)
+```
+title[en]        = iPhone 15 Pro
+title[ar]        = آيفون 15 برو
+description[en]  = Latest iPhone model
+description[ar]  = أحدث موديل آيفون
+sku              = IPH-15P-BLK
+price            = 999.99
+sale_price       = 899.99  (optional)
+stock            = 50
+brand            = Apple
+status           = 1
+category_id      = 1
+main-image       = (file, optional)
+gallery[]        = (files, optional, multiple)
+files[]          = (pdf files, optional, multiple)
+```
+
+---
+
+### ❤️ Favorites Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| GET | `/api/favorites` | Get my favorites | ✅ |
+| POST | `/api/favorites/{product}` | Add to favorites | ✅ |
+| DELETE | `/api/favorites/{product}` | Remove from favorites | ✅ |
+
+---
+
+## 🖥️ Admin Dashboard
+
+Access the admin dashboard at: `http://127.0.0.1:8000/dashboard`
+
+### Default Admin Account
+
+To create an admin user, run:
+
+```bash
+php artisan tinker
+```
+
+```php
+App\Models\User::create([
+    'name'     => 'Admin',
+    'email'    => 'admin@admin.com',
+    'password' => bcrypt('password'),
+    'role'     => 'admin',
+]);
+```
+
+### Dashboard Features
+
+| Section | Features |
+|---|---|
+| Categories | Create, Edit, Delete, Tree View, Image Upload |
+| Products | Create, Edit, Delete, Gallery, PDF Files |
+
+---
+
+## 🌍 Localization
+
+The API supports Arabic and English responses via the `Accept-Language` header:
+
+```
+Accept-Language: en  →  English response
+Accept-Language: ar  →  Arabic response
+```
+
+Translatable fields:
+- Category: `name`
+- Product: `title`, `description`
+
+---
+
+## 🏗️ Project Structure
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Admin/          # Admin Dashboard Controllers
+│   │   ├── Api/            # API Controllers (Auth, Favorites)
+│   │   ├── Category/       # Category API Controller
+│   │   └── Products/       # Product API Controller
+│   ├── Middleware/
+│   │   ├── IsAdmin.php     # Admin role check
+│   │   └── SetLocale.php   # Language detection
+│   ├── Requests/           # Form Request Validation
+│   └── Resources/          # API Resources
+├── Models/
+│   ├── Category.php
+│   ├── Product.php
+│   ├── ProductAttribute.php
+│   ├── Favorite.php
+│   └── User.php
+├── Services/
+│   ├── CategoryService.php
+│   ├── ProductsService.php
+│   └── MediaService.php
+└── Exports/
+    └── ProductsExport.php
+```
+
+---
+
+## 🗃️ Database Tables
+
+| Table | Description |
+|---|---|
+| `users` | Users & Admins (with role column) |
+| `categories` | Nested categories with translations |
+| `products` | Products with translations |
+| `product_attributes` | Unlimited key/value attributes |
+| `favorites` | User favorite products |
+| `media` | All images & files (Spatie) |
+
+---
+
+## 📊 Evaluation Criteria
+
+| Criteria | Points |
+|---|---|
+| Database Design | 20 |
+| Relationships | 20 |
+| Dashboard | 15 |
+| API | 20 |
+| JWT Auth | 10 |
+| Clean Code | 10 |
+| Bonus | 5 |
+| **Total** | **100** |
+
+---
+
+## 👨‍💻 Author
+
+Kareem Mohamed ElKamah

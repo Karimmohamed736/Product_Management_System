@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -26,17 +27,17 @@ class UpdateProductRequest extends FormRequest
             'title'            => 'required|array',
             'title.ar'         => 'required|string|max:255',
             'title.en'         => 'required|string|max:255',
-            'description'      => 'nullable|string',
+            'description'      => 'nullable|array',
             'description.ar'   => 'nullable|string',
             'description.en'   => 'nullable|string',
-            'sku'              => 'required|string|max:100|unique:products,sku,' . $this->route('product'),
+            'sku'              => 'required|string|max:100' , Rule::unique('products', 'sku')->ignore($this->route('product')->id),
             'price'            => 'required|numeric|min:0',
             'sale_price'       => 'nullable|numeric|min:0|lt:price',
             'stock'            => 'required|integer|min:0',
             'brand'            => 'nullable|string|max:255',
             'status'           => 'required|boolean',
             'category_id'      => 'required|exists:categories,id',
-            'main_image'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'main-image'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'gallery'          => 'nullable|array',
             'gallery.*'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'files'            => 'nullable|file|mimes:pdf,doc,docx|max:5120',

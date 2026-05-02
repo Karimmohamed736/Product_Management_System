@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Cache;
 
 class ProductsService
 {
@@ -15,6 +16,9 @@ class ProductsService
 
     public function getAllProducts($filters = [])
     {
+        //add caching for 1 hour with key based on filters
+        $cacheKey = 'products_' . md5(json_encode($filters));
+        return Cache::remember($cacheKey, now()->addMinutes(60), function () use ($filters) {
         $query = Product::with(['category', 'media', 'attributes']);
 
         // search by title en or ar
@@ -45,6 +49,7 @@ class ProductsService
         }
 
         return $query->latest()->paginate(10);
+        });
     }
 
     public function getProductById($id)
@@ -61,12 +66,17 @@ class ProductsService
             $this->mediaService->createMedia($data['main-image'], $product, 'main-image');
         }
         if(isset($data['gallery'])){
-            $this->mediaService->createMedia($data['gallery'], $product, 'gallery');
+            foreach ($data['gallery'] as $image) {
+                $this->mediaService->createMedia($image, $product, 'gallery');
+            }
         }
         if(isset($data['files'])){
-            $this->mediaService->createMedia($data['files'], $product, 'files');
+            foreach ($data['files'] as $file) {
+                $this->mediaService->createMedia($file, $product, 'files');
+            }
         }
 
+        Cache::flush(); //clear cache
         return $product;
     }
 
@@ -79,11 +89,18 @@ class ProductsService
             $this->mediaService->updateMedia($data['main-image'], $product, 'main-image');
         }
         if (isset($data['gallery'])) {
-            $this->mediaService->updateMedia($data['gallery'], $product, 'gallery');
+            foreach ($data['gallery'] as $image) {
+                $this->mediaService->createMedia($image, $product, 'gallery');
+            }
         }
         if (isset($data['files'])) {
-            $this->mediaService->updateMedia($data['files'], $product, 'files');
+            foreach ($data['files'] as $file) {
+                $this->mediaService->createMedia($file, $product, 'files');
+            }
         }
+
+        Cache::forget('products_' . $product->id); //clear cache for this product
+        Cache::flush();
 
         return $product;
     }
@@ -93,7 +110,17 @@ class ProductsService
         foreach (['main-image', 'gallery', 'files'] as $collection) {
             $this->mediaService->deleteMedia($product, $collection);
         }
-        $product->delete();
+
+        Cache::forget('products_' . $product->id); //clear cache for this product
+        Cache::flush();
+        return $product->forceDelete();
+        // return $product->delete(); //trash only
+    }
+
+    // Get only trashed products
+    public function trashedProducts()
+    {
+        return Product::onlyTrashed()->with(['category', 'media', 'attributes'])->latest()->paginate(10);
     }
 
 }

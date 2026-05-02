@@ -38,7 +38,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $categories = $this->categoryService->getAllCategories();
-        return view('Admin.Categories.edit', compact('category', 'categories'));
+        return view('Admin.Categories.editForm', compact('category', 'categories'));
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)
