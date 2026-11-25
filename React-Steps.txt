@@ -1,0 +1,57 @@
+1- npm install react react-dom
+2- npm install @vitejs/plugin-react
+3- make vite interact with jsx in vite config file t calling react
+4- create App.jsx file inside component folder (this file will put in it many components)
+5- create app.jsx or main.jsx (the app begain from it and call App.jsx)
+6- try to create a balde that call the app.jsx or main and id
+7- call the blade in route
+8- in App.jsx we fetch the data and wait for it by (then) that takes the promise and show the data
+9- use loading and error handle in blade as we have to wait the data
+	- make 3 states to handle products and loading and error
+	- same thing in show product (selected id and selected product and error)
+10- call data you want to show in div 
+
+CRUD
+GET
+//All
+1- make states to hold the list of products
+2- make useEffect to fetch the data endpoint (fetch then then catch )
+3- finally to stop loading
+4- return map of products in list
+
+// search and filter
+1- make states to hold the list of what i will search and filter for
+2- call them in dependancy array in all products
+3- use params append to deal with spaces and letters
+4- make inputs to put what we will search and fliter
+
+
+// show
+1- make states
+2- use UseEffect to fetch data by id
+3- in return, if i click on the product, show details of it
+
+POST
+// Login
+1- make states for email nad password
+2- handleSubmit for action and POST 
+3- prevent from refresh
+4- fetch data
+5- set token
+6- return inputs to enter pass and email 
+7- button login
+
+// Logout
+1- handle logout by removing the token 
+2- button logout 
+
+// Create
+1- form state to add all states in it
+2- function to handle the target name and value in input   
+3- function to handle all the form submit
+4- prevent from refresh   
+5- get token
+6- form data to put all columns
+7- fetch
+8- in return make the form and inputs by name and value
+9- image don`t use value for security                                                                                                                            

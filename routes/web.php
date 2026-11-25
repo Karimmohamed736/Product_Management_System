@@ -10,6 +10,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Front End Side
+Route::get('/react', function(){
+    return view('react');
+});
+
 // Route::get('/dashboard', function () {
 //     return view('Admin.index');
 // })->middleware(['auth', 'verified'])->name('dashboard');
